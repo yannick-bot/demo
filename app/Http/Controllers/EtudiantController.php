@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Etudiant;
 use App\Models\Filiere;
+use App\Post;
 
 class EtudiantController extends Controller
 {
@@ -124,11 +125,14 @@ class EtudiantController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->input('');
-        $results = Post::where('title', 'like', "%{$query}%")
-            ->orWhere('content', 'like', "%{$query}%")
+        $query = $request->input('search');
+
+        $results = Etudiant::where('prenom', 'like', "%{$query}%")
+            ->orWhere('adresse', 'like', "%{$query}%")
+            ->orWhere('nom', 'like', "%{$query}%")
             ->get();
 
-        return view('search_results', ['results' => $results]);
+        return view('etudiants.search_results', ['results' => $results]);
     }
 }
+

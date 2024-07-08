@@ -4,6 +4,7 @@
 @section('content')
 
 <form action="{{route('etudiants.search')}}" method="post">
+    @csrf
     <div class="form-row">
         <input class="trouve" type="search" name="search" placeholder="Search for students"/>
         <button type="submit">Search</button>
