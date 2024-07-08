@@ -43,7 +43,7 @@ class EtudiantController extends Controller
         $rules = [
             'nom' => 'required|string|min:3',
             'prenom' => 'required|string|min:3',
-            'sexe' => 'required|in_array:F,M',
+            'sexe' => 'required|in: F,M',
             'adresse' => 'required|string',
             'date_naissance' => 'required|date',
             'numero' => 'required|numeric'
@@ -120,5 +120,9 @@ class EtudiantController extends Controller
         $etudiant = $filiere->etudiants;
         dd($etudiant);
 
+    }
+
+    public function search() {
+        
     }
 }

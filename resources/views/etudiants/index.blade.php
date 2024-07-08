@@ -3,9 +3,9 @@
 
 @section('content')
 
-<form action="front.php" method="post">
+<form action="{{route('etudiants.search')}}" method="post">
     <div class="form-row">
-        <input class="trouve" type="search" name="search" placeholder="Search for books, authors"/>
+        <input class="trouve" type="search" name="search" placeholder="Search for students"/>
         <button>Search</button>
     </div>
 </form>
