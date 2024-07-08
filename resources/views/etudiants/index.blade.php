@@ -2,6 +2,14 @@
 @section('title', "Liste des etudiants")
 
 @section('content')
+
+<form action="front.php" method="post">
+    <div class="form-row">
+        <input class="trouve" type="search" name="search" placeholder="Search for books, authors"/>
+        <button>Search</button>
+    </div>
+</form>
+
 <a href="{{route('etudiants.create')}}">Nouveau etudiant</a>
     <table>
         <thead>
@@ -42,7 +50,7 @@
 
             @endforeach
 
-          
+
         </tbody>
 
     </table>

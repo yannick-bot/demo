@@ -40,8 +40,8 @@
 
     <div>
         <label for="">Sexe </label>
-        Masculin: <input type="radio" name="sexe" required value="M" required value ="{{old('sexe')}}"  {{($etudiant->sexe == old('sexe'))? 'selected' : ''}}>
-        Féminin: <input type="radio" name="sexe" required value="F">
+        Masculin: <input type="radio" name="sexe"  value="M" required {{(old('sexe') == 'M') ? 'checked' : ''}}>
+        Féminin: <input type="radio" name="sexe" value="F" required {{(old('sexe') == 'F') ? 'checked' : ''}}>
     </div>
     <div>
         <label for="adresse">adresse</label>
