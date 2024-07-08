@@ -124,7 +124,7 @@ class EtudiantController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->input('q');
+        $query = $request->input('');
         $results = Post::where('title', 'like', "%{$query}%")
             ->orWhere('content', 'like', "%{$query}%")
             ->get();
