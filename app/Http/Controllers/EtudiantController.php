@@ -122,7 +122,13 @@ class EtudiantController extends Controller
 
     }
 
-    public function search() {
-        
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+        $results = Post::where('title', 'like', "%{$query}%")
+            ->orWhere('content', 'like', "%{$query}%")
+            ->get();
+
+        return view('search_results', ['results' => $results]);
     }
 }
