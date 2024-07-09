@@ -20,9 +20,9 @@ Route::get('/', function () {
 
 });
 
-Route::get('etudiants/create', [EtudiantController::class, 'create'])->name('etudiants.create');
-
 Route::post('etudiants', [EtudiantController::class, 'store'])->name('etudiants.store');
+
+Route::get('etudiants/create', [EtudiantController::class, 'create'])->name('etudiants.create');
 
 Route::get('etudiants/index', [EtudiantController::class, 'index'])->name('etudiants.index');
 
@@ -35,5 +35,7 @@ Route::delete('etudiants/{id}', [EtudiantController::class, 'destroy'])->name('e
 Route::get('etudiants/filiere/{code}', [EtudiantController::class, 'byCodeFiliere'])->name('etudiants.byCodeFiliere'); //Quand c'est un parametre c'est entre accolades
 
 Route::post('etudiants', [EtudiantController::class, 'search'])->name('etudiants.search');
+
+Route::post('etudiants', [EtudiantController::class, 'searchByF'])->name('etudiants.searchByF');
 
 

@@ -4,7 +4,7 @@
 
 @section('content')
 <h1>Création d'un étudiant</h1>
-<form action="{{route('etudiants.store')}}" method="POST">
+<form action="{{ route('etudiants.store') }}" method="POST">
     @csrf
 <!-- Pour gérer les erreurs soulevés par les règles de validation du formulaire -->
     @if ($errors->any())

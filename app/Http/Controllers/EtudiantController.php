@@ -44,7 +44,7 @@ class EtudiantController extends Controller
         $rules = [
             'nom' => 'required|string|min:3',
             'prenom' => 'required|string|min:3',
-            'sexe' => 'required|in: F,M',
+            'sexe' => 'required|in_array: F,M',
             'adresse' => 'required|string',
             'date_naissance' => 'required|date',
             'numero' => 'required|numeric'
@@ -127,12 +127,35 @@ class EtudiantController extends Controller
     {
         $query = $request->input('search');
 
-        $results = Etudiant::where('prenom', 'like', "%{$query}%")
-            ->orWhere('adresse', 'like', "%{$query}%")
-            ->orWhere('nom', 'like', "%{$query}%")
+        $results = Etudiant::where('prenom', '=', "{$query}")
+            ->orWhere('adresse', '=', "{$query}")
+            ->orWhere('nom', '=', "{$query}")
             ->get();
 
         return view('etudiants.search_results', ['results' => $results]);
     }
+
+    public function searchByF(Request $request)
+    {
+
+        $category = $request->input('searchByF');
+        switch($category) {
+            case "AL":
+                $results = Etudiant::where('filieres_id', '=', "{$category}")
+                    ->get();
+                break;
+            case "SI":
+                $results = Etudiant::where('filieres_id', '=', "{$category}")
+                    ->get();
+                break;
+            case "MAC":
+                $results = Etudiant::where('filieres_id', '=', "{$category}")
+                    ->get();
+                break;
+        }
+        return view('etudiants.search_results', ['results' => $results]);
+    }
+
+
 }
 

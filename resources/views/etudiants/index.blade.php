@@ -11,6 +11,21 @@
     </div>
 </form>
 
+<div class="categorie-columns">
+    @csrf
+    <form action="{{route('etudiants.searchByF')}}" method="post">
+        <select name="searchByF">
+            <option value="AL - Achitecture logiciel">AL - Achitecture logiciel</option>
+            <option value="MAC - Marketing et action commerciale">MAC - Marketing et action commerciale</option>
+            <option value="SI - Securite informatique">SI - Securite informatique</option>
+        </select>
+        <button type = "submit">Rechercher</button>
+    </form>
+</div>
+
+
+
+
 <a href="{{route('etudiants.create')}}">Nouveau etudiant</a>
     <table>
         <thead>
