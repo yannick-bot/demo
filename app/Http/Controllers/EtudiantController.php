@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Etudiant;
 use App\Models\Filiere;
-use App\Post;
 
 class EtudiantController extends Controller
 {
@@ -28,7 +27,6 @@ class EtudiantController extends Controller
     public function create()
     {
         $filieres = Filiere::all();
-        //dd($filieres);
         return view('etudiants.create', [
             'filieres'=> $filieres
         ]);
@@ -40,12 +38,12 @@ class EtudiantController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         $rules = [
             'nom' => 'required|string|min:3',
             'prenom' => 'required|string|min:3',
-            'sexe' => 'required|in_array: F,M',
-            'adresse' => 'required|string',
+            'sexe' => 'required',
+            'adresse' => 'required|string|min:4',
             'date_naissance' => 'required|date',
             'numero' => 'required|numeric'
         ];
@@ -59,8 +57,7 @@ class EtudiantController extends Controller
         $etudiant->date_naissance = $request->input('date_naissance');
         $etudiant->numero = $request->input('numero');
         $etudiant->save();
-        return redirect()->route('etudiants.index');
-
+        return redirect()->route("etudiants.index");
     }
 
     /**
@@ -123,37 +120,33 @@ class EtudiantController extends Controller
 
     }
 
-    public function search(Request $request)
+    public function search()
     {
-        $query = $request->input('search');
+        $query = request()->input('search');
 
         $results = Etudiant::where('prenom', '=', "{$query}")
             ->orWhere('adresse', '=', "{$query}")
             ->orWhere('nom', '=', "{$query}")
-            ->get();
+            ->paginate(6);
 
         return view('etudiants.search_results', ['results' => $results]);
     }
 
-    public function searchByF(Request $request)
+    public function searchByF()
     {
 
-        $category = $request->input('searchByF');
-        switch($category) {
-            case "AL":
-                $results = Etudiant::where('filieres_id', '=', "{$category}")
+        $category=request()->input('searchByF');
+                $results = Etudiant::join(
+                    'filieres',
+                    'etudiants.filieres_id',
+                    '=',
+                    'filieres.id'
+                )
+                    ->where('filieres_id', '=', "{$category}")
+                    ->select('etudiants.*', 'filieres.nom as nom_filiere')
                     ->get();
-                break;
-            case "SI":
-                $results = Etudiant::where('filieres_id', '=', "{$category}")
-                    ->get();
-                break;
-            case "MAC":
-                $results = Etudiant::where('filieres_id', '=', "{$category}")
-                    ->get();
-                break;
-        }
-        return view('etudiants.search_results', ['results' => $results]);
+                return view('etudiants.search_results', ['results' => $results]);
+
     }
 
 
