@@ -50,6 +50,7 @@ class EtudiantController extends Controller
         $validate_data = $request->validate($rules);
         $etudiant = new Etudiant;
         $etudiant->filieres_id = $request->input('filiere');
+        $etudiant->matricule = $this->Matricule();
         $etudiant->nom = $request->input('nom');
         $etudiant->prenom = $request->input('prenom');
         $etudiant->sexe = $request->input('sexe');
@@ -147,6 +148,14 @@ class EtudiantController extends Controller
                     ->get();
                 return view('etudiants.search_results', ['results' => $results]);
 
+    }
+
+    public function Matricule() {
+        $prefixe = 'S10';
+        $annee = date('y');
+        $id = strtoupper(bin2hex(random_bytes(3)));
+
+        return $prefixe . $annee . $id;
     }
 
 
